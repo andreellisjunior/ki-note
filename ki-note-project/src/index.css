@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Nunito", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  background-color: #fafffc;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+*,
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hero-section {
+  background: radial-gradient(
+    259.37% 141.42% at 0% 100%,
+    #026b26 0%,
+    #06b6b6 100%
+  );
+  position: relative;
+}
+.hero-section:after {
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  z-index: 1;
+}
