@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./components/Header.tsx";
 import Event from "./components/Event.tsx";
 import { createClient } from "@supabase/supabase-js";
 
@@ -13,6 +12,8 @@ type Events = {
   event_date: string;
   event_time: string;
   speaker: string;
+  email: string;
+  description: string;
 }[];
 
 const supabase = createClient(
@@ -22,22 +23,30 @@ const supabase = createClient(
 
 const Main = () => {
   const [events, setEvents] = useState<Events | null>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getEvents();
   }, []);
 
   async function getEvents() {
+    setIsLoading(true);
     const { data } = await supabase.from("events").select();
     setEvents(data);
+    setIsLoading(false);
   }
   return (
     <React.StrictMode>
       <BrowserRouter>
-        <Header />
         <Routes>
-          <Route path="/" element={<App events={events} />} />
-          <Route path="/events/:event" element={<Event />} />
+          <Route
+            path="/"
+            element={<App loading={isLoading} events={events} />}
+          />
+          <Route
+            path="/events/:eventID"
+            element={<Event loading={isLoading} events={events} />}
+          />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

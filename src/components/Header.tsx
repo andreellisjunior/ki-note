@@ -1,8 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import logo from "../assets/Logo.png";
 import watermark from "../assets/watermark.png";
 
-const Header = () => {
+type Events = {
+  id: string;
+  topic: string;
+  event_date: string;
+  event_time: string;
+  speaker: string;
+  email: string;
+  description: string;
+}[];
+
+const Header = ({ events }: { events: Events | null }) => {
+  const { eventID } = useParams();
+  console.log(eventID);
+  const event = events?.find((event) => {
+    return event.id == eventID;
+  });
+
   return (
     <div className="h-96 hero-section after:bg-black after:bg-opacity-60 relative flex flex-col overflow-hidden text-white">
       <div className="header container mx-auto p-4 flex items-center justify-between relative z-10">
@@ -10,7 +26,7 @@ const Header = () => {
           <img src={logo} alt="Ki-note logo" />
         </Link>
         <nav className="flex items-center gap-8 uppercase font-extrabold">
-          <Link className="" to="/events/1">
+          <Link className="" to="/">
             Upcoming Events
           </Link>
           <Link
@@ -31,8 +47,16 @@ const Header = () => {
       </div>
       <img src={watermark} alt="Ki-note logo" className="absolute  right-0" />
       <div className="container mx-auto p-4 h-full flex flex-col justify-center mb-12 z-10">
-        {/* <h6 className="text-2xl mb-4 font-bold">TOPIC:</h6> */}
-        <h1 className="text-5xl">Empowering Expert Experiences</h1>
+        {event ? (
+          <>
+            <h6 className="text-2xl mb-4 font-bold">TOPIC:</h6>
+            <h1 className="text-5xl uppercase">{event.topic}</h1>
+          </>
+        ) : (
+          <>
+            <h1 className="text-5xl">Empowering Expert Experiences</h1>
+          </>
+        )}
       </div>
     </div>
   );

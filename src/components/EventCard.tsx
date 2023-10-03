@@ -28,8 +28,6 @@ const EventCard = ({
     Number(timeConversion) > 12 ? "PM" : "AM"
   }`;
 
-  console.log(event.topic, newTime);
-
   return (
     <Link to={`/events/${event.id}`} className="relative m-4 block">
       <div className="border-l-8 border-green-800 border-l- pl-4 flex flex-col gap-2">
