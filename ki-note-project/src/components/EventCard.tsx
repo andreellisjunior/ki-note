@@ -1,15 +1,42 @@
 import { Link } from "react-router-dom";
 
-const EventCard = () => {
+const EventCard = ({
+  event,
+}: {
+  event: {
+    id: string;
+    event_date: string;
+    event_time: string;
+    topic: string;
+    speaker: string;
+  };
+}) => {
+  const eventDate = new Date(event.event_date);
+  let eventTime = event.event_time;
+  let timeOfDay;
+  if (eventTime) timeOfDay = eventTime.slice(2);
+
+  const newTime = `${event.event_time} ${Number(timeOfDay) > 12 ? "PM" : "AM"}`;
+
+  console.log(eventTime);
+
   return (
-    <Link to="/events/1">
+    <Link to={`/events/${event.id}`} className="relative m-4 block">
       <div className="border-l-8 border-green-800 border-l- pl-4 flex flex-col gap-2">
         <p>
-          <span className="font-bold">OCT 4TH, 2023</span> | 9:00 A.M.
+          <span className="font-bold">
+            {eventDate.toLocaleDateString("en-us", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </span>{" "}
+          | <span>{newTime.slice(0, 5) + " " + newTime.slice(8)}</span>
         </p>
-        <p className="text-2xl font-bold">THE POWER OF HABIT</p>
+        <p className="text-2xl font-bold">{event.topic}</p>
         <p>
-          by <span>Andre Ellis Jr.</span>
+          by <span>{event.speaker}</span>
         </p>
       </div>
     </Link>

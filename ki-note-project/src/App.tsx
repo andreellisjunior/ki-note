@@ -1,14 +1,20 @@
-import "./App.css";
-import EventCard from "./components/EventCard";
+import SpeakerRequest from "./components/SpeakerRequest";
+import UpcomingEvents from "./components/UpcomingEvents";
 
-function App() {
+type Events = {
+  id: string;
+  topic: string;
+  event_date: string;
+  event_time: string;
+  speaker: string;
+}[];
+
+function App({ events }: { events: Events | null }) {
   return (
     <>
-      <div className="container mx-auto my-10">
-        <div className="p-10 h-96 bg-white w-full shadow-2xl rounded-3xl">
-          <h2 className="text-3xl mb-4">Upcoming Events</h2>
-          <EventCard />
-        </div>
+      <div className="grid grid-cols-6 items-stretch gap-12 container mx-auto">
+        <UpcomingEvents events={events} />
+        <SpeakerRequest />
       </div>
     </>
   );
