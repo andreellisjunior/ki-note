@@ -14,11 +14,21 @@ const EventCard = ({
   const eventDate = new Date(event.event_date);
   let eventTime = event.event_time;
   let timeOfDay;
-  if (eventTime) timeOfDay = eventTime.slice(2);
+  let timeConversion;
+  if (eventTime) {
+    timeConversion = Number(eventTime.slice(0, 2));
+    if (timeConversion > 12) {
+      timeOfDay = timeConversion - 12;
+    } else {
+      timeOfDay = timeConversion;
+    }
+  }
 
-  const newTime = `${event.event_time} ${Number(timeOfDay) > 12 ? "PM" : "AM"}`;
+  const newTime = `${event.event_time} ${
+    Number(timeConversion) > 12 ? "PM" : "AM"
+  }`;
 
-  console.log(eventTime);
+  console.log(event.topic, newTime);
 
   return (
     <Link to={`/events/${event.id}`} className="relative m-4 block">
@@ -32,7 +42,10 @@ const EventCard = ({
               day: "numeric",
             })}
           </span>{" "}
-          | <span>{newTime.slice(0, 5) + " " + newTime.slice(8)}</span>
+          |{" "}
+          <span>
+            {timeOfDay + "" + newTime.slice(2, 5) + " " + newTime.slice(8)}
+          </span>
         </p>
         <p className="text-2xl font-bold">{event.topic}</p>
         <p>
