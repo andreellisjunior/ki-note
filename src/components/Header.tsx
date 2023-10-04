@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import logo from "../assets/Logo.png";
 import watermark from "../assets/watermark.png";
+import { useAuth } from "./context/AuthProvider";
 
 type Events = {
   id: string;
@@ -14,10 +15,25 @@ type Events = {
 
 const Header = ({ events }: { events: Events | null }) => {
   const { eventID } = useParams();
-  console.log(eventID);
+
   const event = events?.find((event) => {
     return event.id == eventID;
   });
+
+  const { auth, signOut } = useAuth();
+
+  const handleLogout = async (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+
+    try {
+      const { error } = await signOut();
+      console.log(error);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="h-96 hero-section after:bg-black after:bg-opacity-60 relative flex flex-col overflow-hidden text-white">
@@ -27,14 +43,25 @@ const Header = ({ events }: { events: Events | null }) => {
         </Link>
         <nav className="flex items-center gap-8 uppercase font-extrabold">
           <Link className="" to="/">
-            Upcoming Events
+            {!auth ? "Upcoming Events" : "Pending Events"}
           </Link>
-          <Link
-            to="/login"
-            className="bg-[#026B26] rounded-lg px-4 py-2 hover:bg-[#174828] transition"
-          >
-            Admin Login
-          </Link>
+          {!auth && (
+            <Link
+              to="/login"
+              className="bg-[#026B26] rounded-lg px-4 py-2 hover:bg-[#174828] transition"
+            >
+              Admin Login
+            </Link>
+          )}
+          {auth && (
+            <Link
+              to="/"
+              className="bg-[#AC0000] rounded-lg px-4 py-2 hover:bg-[#174828] transition"
+              onClick={handleLogout}
+            >
+              Log Out
+            </Link>
+          )}
           {/* <a
             href="#_"
             className="relative inline-flex items-center justify-center p-4 px-5 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out rounded-full shadow-xl group hover:ring-1 hover:ring-purple-500"

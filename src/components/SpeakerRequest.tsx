@@ -1,10 +1,5 @@
 import { useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  `https://${import.meta.env.VITE_SUPABASE_PROJECT}.supabase.co`,
-  `${import.meta.env.VITE_SUPABASE_KEY}`
-);
+import { supabase } from "../supabase/client";
 
 type FormData = {
   full_name: string;
@@ -33,7 +28,7 @@ const SpeakerRequest = () => {
     e.preventDefault();
 
     // create new event
-    // console.log(formData);
+
     try {
       const { error } = await supabase.from("events").insert([
         {

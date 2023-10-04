@@ -1,5 +1,6 @@
 import EventCard from "./EventCard";
 import Loader from "./Loader";
+import { useAuth } from "./context/AuthProvider";
 
 type Events = {
   id: string;
@@ -16,11 +17,16 @@ const UpcomingEvents = ({
   events: Events | null;
   loading: boolean;
 }) => {
+  const { user } = useAuth();
   return (
     <>
       <div className="container mx-auto my-10 col-span-4">
         <div className="p-10 h-full bg-white w-full shadow-xl rounded-3xl">
-          <h2 className="text-3xl mb-4">Upcoming Events</h2>
+          {user ? (
+            <h2 className="text-3xl mb-4">Pending Events</h2>
+          ) : (
+            <h2 className="text-3xl mb-4">Upcoming Events</h2>
+          )}
           <div className="grid grid-rows-4 grid-cols-2">
             {loading ? (
               <Loader />

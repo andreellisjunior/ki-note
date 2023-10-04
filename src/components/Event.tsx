@@ -2,24 +2,11 @@ import Header from "./Header";
 import Loader from "./Loader";
 import SpeakerRequest from "./SpeakerRequest";
 import { useParams } from "react-router-dom";
+import { useAuth } from "./context/AuthProvider";
+import EventNotes from "./EventNotes";
 
-type Events = {
-  id: string;
-  topic: string;
-  event_date: string;
-  event_time: string;
-  speaker: string;
-  email: string;
-  description: string;
-}[];
-
-const Event = ({
-  events,
-  loading,
-}: {
-  events: Events | null;
-  loading: boolean;
-}) => {
+const Event = () => {
+  const { events, isLoading, user } = useAuth();
   const { eventID } = useParams();
 
   const event = events?.find((event) => {
@@ -51,7 +38,7 @@ const Event = ({
       <div className="grid grid-cols-6 items-stretch gap-12 container mx-auto">
         <div className="container mx-auto my-10 col-span-4">
           <div className="p-10 h-full bg-white w-full shadow-xl rounded-3xl">
-            {loading ? (
+            {isLoading ? (
               <Loader />
             ) : event ? (
               <>
@@ -97,7 +84,7 @@ const Event = ({
             )}
           </div>
         </div>
-        <SpeakerRequest />
+        {user ? <EventNotes /> : <SpeakerRequest />}
       </div>
     </>
   );
