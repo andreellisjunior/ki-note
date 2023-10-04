@@ -22,7 +22,6 @@ const EventNotes = () => {
         notes: event?.notes,
         rejection_notes: event?.rejection_notes,
       });
-      console.log(event);
     }
   }, [event]);
 
@@ -42,6 +41,7 @@ const EventNotes = () => {
           {
             notes: formData.notes,
             rejection_notes: formData.rejection_notes,
+            status: "approved",
           },
         ])
         .eq("id", eventID)
@@ -85,6 +85,7 @@ const EventNotes = () => {
                 onChange={updateData}
                 value={formData.notes}
               ></textarea>
+              <label htmlFor="rejection_notes">Rejection Notes:</label>
               <textarea
                 name="rejection_notes"
                 id="rejection_notes"
@@ -112,8 +113,7 @@ const EventNotes = () => {
         ) : (
           <>
             <p>
-              Input your name and the notes you&apos;d like to add to the
-              request.
+              Input your name and the notes you'd like to add to the request.
             </p>
             <form className="flex flex-col" onSubmit={handleSubmit}>
               <textarea
@@ -122,15 +122,16 @@ const EventNotes = () => {
                 className="border border-gray-400 bg-[#FBFBFB] rounded-lg w-full px-4 py-2 my-3 h-44"
                 placeholder="Andre: Made some recommendations on the requirements to an enhanced experience"
                 onChange={updateData}
-                value={formData.notes}
+                value={formData.notes || ""}
               ></textarea>
+              <label htmlFor="rejection_notes">Rejection Notes:</label>
               <textarea
                 name="rejection_notes"
                 id="rejection_notes"
                 className="border border-gray-400 bg-[#FBFBFB] rounded-lg w-full px-4 py-2 my-3 h-44"
                 placeholder="If rejected, here’s why? This is the only section that will be emailed."
                 onChange={updateData}
-                value={formData.rejection_notes}
+                value={formData.rejection_notes || ""}
               ></textarea>
               <div className="flex gap-10 justify-end">
                 <button
@@ -140,7 +141,7 @@ const EventNotes = () => {
                   APPROVE
                 </button>
                 <button
-                  type="submit"
+                  type="button"
                   className="bg-[#AC0000] rounded-lg px-4 py-2 hover:bg-[#174828] transition text-white font-bold"
                 >
                   REJECT

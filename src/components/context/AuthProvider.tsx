@@ -20,6 +20,7 @@ type Events = {
   description: string;
   notes: string;
   rejection_notes: string;
+  status: string;
 }[];
 
 // @ts-expect-error

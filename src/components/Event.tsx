@@ -44,6 +44,22 @@ const Event = () => {
               <>
                 <h2 className="text-3xl mb-8">Event Details</h2>
                 <div className="flex flex-col gap-10">
+                  {user && (
+                    <div className="text-xl flex">
+                      <span className="font-extrabold min-w-[25%]">
+                        STATUS:{" "}
+                      </span>
+                      <span
+                        className={`${
+                          event.status == "rejected"
+                            ? "text-red-800 font-black"
+                            : "text-current"
+                        }`}
+                      >
+                        {event.status}
+                      </span>
+                    </div>
+                  )}
                   <div className="text-xl flex">
                     <span className="font-extrabold min-w-[25%]">DATE: </span>
                     <span className="uppercase">

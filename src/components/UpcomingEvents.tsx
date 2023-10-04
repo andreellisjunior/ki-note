@@ -2,22 +2,9 @@ import EventCard from "./EventCard";
 import Loader from "./Loader";
 import { useAuth } from "./context/AuthProvider";
 
-type Events = {
-  id: string;
-  topic: string;
-  event_date: string;
-  event_time: string;
-  speaker: string;
-}[];
+const UpcomingEvents = () => {
+  const { events, user, isLoading } = useAuth();
 
-const UpcomingEvents = ({
-  events,
-  loading,
-}: {
-  events: Events | null;
-  loading: boolean;
-}) => {
-  const { user } = useAuth();
   return (
     <>
       <div className="container mx-auto my-10 col-span-4">
@@ -28,10 +15,16 @@ const UpcomingEvents = ({
             <h2 className="text-3xl mb-4">Upcoming Events</h2>
           )}
           <div className="grid grid-rows-4 grid-cols-2">
-            {loading ? (
+            {isLoading ? (
               <Loader />
+            ) : user ? (
+              events
+                ?.filter((event) => event.status == "pending")
+                .map((event) => <EventCard event={event} key={event.id} />)
             ) : (
-              events?.map((event) => <EventCard event={event} key={event.id} />)
+              events
+                ?.filter((event) => event.status == "approved")
+                .map((event) => <EventCard event={event} key={event.id} />)
             )}
           </div>
         </div>
