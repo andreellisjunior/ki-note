@@ -36,7 +36,7 @@ const Event = () => {
     <>
       <Header events={events} />
       <div className="grid grid-cols-6 items-stretch gap-12 container mx-auto">
-        <div className="container mx-auto my-10 col-span-4">
+        <div className="container mx-auto my-10 lg:col-span-4 col-span-6">
           <div className="p-10 h-full bg-white w-full shadow-xl rounded-3xl">
             {isLoading ? (
               <Loader />
@@ -88,9 +88,7 @@ const Event = () => {
                     <span className="">{event.email}</span>
                   </div>
                   <div className="text-xl flex">
-                    <span className="font-extrabold min-w-[25%]">
-                      DESCRIPTION:{" "}
-                    </span>
+                    <span className="font-extrabold min-w-[25%]">DESC: </span>
                     <span className="">{event.description}</span>
                   </div>
                 </div>

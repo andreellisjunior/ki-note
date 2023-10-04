@@ -37,7 +37,7 @@ const Header = ({ events }: { events: Events | null }) => {
 
   return (
     <div className="h-96 hero-section after:bg-black after:bg-opacity-60 relative flex flex-col overflow-hidden text-white">
-      <div className="header container mx-auto p-4 flex items-center justify-between relative z-10">
+      <div className="header container mx-auto p-4 flex flex-col md:flex-row gap-4 items-center justify-between relative z-10">
         <Link to="/">
           <img src={logo} alt="Ki-note logo" />
         </Link>

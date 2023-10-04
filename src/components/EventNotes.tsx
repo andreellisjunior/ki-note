@@ -64,7 +64,7 @@ const EventNotes = () => {
   };
 
   return (
-    <div className="container mx-auto my-10 col-span-2">
+    <div className="container mx-auto my-10 lg:col-span-2 col-span-6">
       <div className="p-10 h-auto bg-white w-full shadow-xl rounded-3xl">
         <h3 className="text-2xl">Approver Notes</h3>
         {message ? (
