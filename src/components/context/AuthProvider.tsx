@@ -11,6 +11,7 @@ type AuthContext = {
 };
 
 type Events = {
+  requirements: string;
   id: string;
   topic: string;
   event_date: string;
@@ -69,7 +70,10 @@ const AuthProvider = ({ children }: { children: any }) => {
 
     const getEvents = async () => {
       setIsLoading(true);
-      const { data } = await supabase.from("events").select();
+      const { data } = await supabase
+        .from("events")
+        .select()
+        .order("event_date");
       setEvents(data);
       setIsLoading(false);
     };

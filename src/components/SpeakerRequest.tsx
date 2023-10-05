@@ -64,8 +64,8 @@ const SpeakerRequest = () => {
   };
 
   return (
-    <div className="container mx-auto my-10 lg:col-span-2 col-span-6">
-      <div className="p-10 h-auto bg-white w-full shadow-xl rounded-3xl">
+    <div className="container mx-auto my-10 lg:col-span-2 col-span-6 px-4">
+      <div className="p-10 h-auto bg-white w-full shadow-xl rounded-3xl border-[1px] border-gray-300">
         <h3 className="text-2xl">What to Speak?</h3>
         {message ? (
           <>

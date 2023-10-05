@@ -43,7 +43,7 @@ const Header = ({ events }: { events: Events | null }) => {
         </Link>
         <nav className="flex items-center gap-8 uppercase font-extrabold">
           <Link className="" to="/">
-            {!auth ? "Upcoming Events" : "Pending Events"}
+            {!auth ? "Upcoming Events" : "All Events"}
           </Link>
           {!auth && (
             <Link

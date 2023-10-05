@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "./context/AuthProvider";
 
 const EventCard = ({
   event,
@@ -12,6 +13,7 @@ const EventCard = ({
     status: string;
   };
 }) => {
+  const { user } = useAuth();
   const eventDate = new Date(event.event_date);
   let eventTime = event.event_time;
   let timeOfDay;
@@ -28,6 +30,7 @@ const EventCard = ({
   const newTime = `${event.event_time} ${
     Number(timeConversion) > 12 ? "PM" : "AM"
   }`;
+
   let badgeColor;
   switch (event.status) {
     case "rejected":
@@ -44,11 +47,13 @@ const EventCard = ({
   return (
     <Link to={`/events/${event.id}`} className="relative m-4 block">
       <div className="border-l-8 border-green-800 border-l- pl-4 flex flex-col gap-2">
-        <span
-          className={`${badgeColor} text-xs font-medium mr-2 px-2.5 py-0.5 rounded self-start`}
-        >
-          {event.status}
-        </span>
+        {user && (
+          <span
+            className={`${badgeColor} text-xs font-medium mr-2 px-2.5 py-0.5 rounded self-start`}
+          >
+            {event.status}
+          </span>
+        )}
         <p>
           <span className="font-bold">
             {eventDate.toLocaleDateString("en-us", {
