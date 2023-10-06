@@ -108,7 +108,7 @@ const Event = () => {
         ])
         .eq("id", eventID)
         .select();
-      setMessage("✅");
+      setMessage("updated!");
       setIsEditing(false);
       inputFields.forEach((item) => {
         item.setAttribute("readonly", "true");
@@ -157,7 +157,7 @@ const Event = () => {
   return (
     <>
       <Header events={events} />
-      <div className="grid grid-cols-6 items-stretch gap-12 container mx-auto">
+      <div className="grid grid-cols-6 items-stretch lg:gap-12 container mx-auto px-4">
         <div className="container mx-auto my-10 lg:col-span-4 col-span-6">
           <div className="p-10 h-full bg-white w-full shadow-xl rounded-3xl border-[1px] border-gray-300">
             {isLoading ? (
@@ -165,7 +165,7 @@ const Event = () => {
             ) : event ? (
               <>
                 <h2 className="text-3xl mb-8">Event Details</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="mb-8">
                   <div className="flex flex-col gap-10">
                     {user && (
                       <div className="text-xl flex items-center">
@@ -291,6 +291,14 @@ const Event = () => {
                       </button>
                     </div>
                   )}
+                  {message && (
+                    <span
+                      id="badge-dismiss-green"
+                      className="bg-green-100 text-green-800 font-medium mr-2 px-2.5 py-0.5 rounded border border-green-400"
+                    >
+                      {message}
+                    </span>
+                  )}
                 </form>
                 {!isEditing && user && (
                   <>
@@ -301,9 +309,6 @@ const Event = () => {
                     >
                       Edit
                     </button>
-                    {message && (
-                      <span className="text-3xl absolute">{message}</span>
-                    )}
                   </>
                 )}
                 {user && (

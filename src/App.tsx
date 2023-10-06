@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Header events={events} />
-      <div className="grid grid-cols-6 items-stretch gap-12 container mx-auto">
+      <div className="grid grid-cols-6 items-stretch lg:gap-12 container mx-auto">
         <UpcomingEvents />
         <SpeakerRequest />
       </div>
