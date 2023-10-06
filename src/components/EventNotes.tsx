@@ -33,7 +33,7 @@ const EventNotes = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleNotesSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("email section of the handlesubmit");
     try {
@@ -43,6 +43,7 @@ const EventNotes = () => {
           {
             notes: formData.notes,
             rejection_notes: formData.rejection_notes,
+            status: "approved",
           },
         ])
         .eq("id", eventID)
@@ -152,7 +153,7 @@ const EventNotes = () => {
             >
               {error ? error : message}
             </p>
-            <form className="flex flex-col" onSubmit={handleSubmit}>
+            <form className="flex flex-col" onSubmit={handleNotesSubmit}>
               <textarea
                 name="notes"
                 id="notes"
@@ -193,7 +194,7 @@ const EventNotes = () => {
             </p>
             <form
               className="flex flex-col"
-              onSubmit={handleSubmit}
+              onSubmit={handleNotesSubmit}
               id="submitForm"
             >
               <textarea

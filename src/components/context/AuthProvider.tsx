@@ -8,6 +8,8 @@ type AuthContext = {
   auth: boolean;
   events: Events | null;
   isLoading: boolean;
+  passwordReset: Function;
+  updatePassword: Function;
 };
 
 type Events = {
@@ -40,6 +42,14 @@ const login = (email: string, password: string) => {
 
 const signOut = () => supabase.auth.signOut();
 
+const passwordReset = (email: string) =>
+  supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: "http://localhost:5177/update-password",
+  });
+
+const updatePassword = (updatedPassword: string) =>
+  supabase.auth.updateUser({ password: updatedPassword });
+
 const AuthProvider = ({ children }: { children: any }) => {
   const [user, setUser] = useState<User | null>();
   const [auth, setAuth] = useState(false);
@@ -58,7 +68,9 @@ const AuthProvider = ({ children }: { children: any }) => {
     getUser();
 
     const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "SIGNED_IN") {
+      if (event === "PASSWORD_RECOVERY") {
+        setAuth(false);
+      } else if (event === "SIGNED_IN") {
         setUser(session?.user);
         setAuth(true);
         await getEvents();
@@ -87,7 +99,16 @@ const AuthProvider = ({ children }: { children: any }) => {
   return (
     !loading && (
       <AuthContext.Provider
-        value={{ auth, user, login, signOut, events, isLoading }}
+        value={{
+          auth,
+          user,
+          login,
+          signOut,
+          events,
+          isLoading,
+          passwordReset,
+          updatePassword,
+        }}
       >
         {children}
       </AuthContext.Provider>

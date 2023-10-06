@@ -5,10 +5,9 @@ import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Event from "./components/Event.tsx";
 import Login from "./components/Login.tsx";
-import TestAuth from "./components/TestAuth.tsx";
 import AuthProvider from "./components/context/AuthProvider.tsx";
-import AuthRoute from "./components/AuthRoute.tsx";
-import Register from "./components/Register.tsx";
+import PasswordReset from "./components/PasswordReset.tsx";
+import UpdatePassword from "./components/UpdatePassword.tsx";
 
 const Main = () => {
   return (
@@ -19,12 +18,8 @@ const Main = () => {
             <Route path="/" element={<App />} />
             <Route path="/events/:eventID" element={<Event />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/test" element={<TestAuth />} />
-            <Route element={<AuthRoute />}>
-              <Route path="/" element={<App />} />
-              <Route path="/home" element={<TestAuth />} />
-            </Route>
-            <Route path="/register" element={<Register />} />
+            <Route path="/passwordreset" element={<PasswordReset />} />
+            <Route path="/update-password" element={<UpdatePassword />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

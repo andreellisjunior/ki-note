@@ -1,40 +1,30 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LogoDark from "../assets/Logo-dark.png";
 import { useState } from "react";
 import { useAuth } from "./context/AuthProvider";
 
 type FormData = {
   email: string;
-  password: string;
 };
 
-const Login = () => {
+const PasswordReset = () => {
   const [formData, setFormData] = useState<FormData>({
     email: "",
-    password: "",
   });
-  const [errorMsg, setErrorMsg] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const { login } = useAuth();
+  const { passwordReset } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      setErrorMsg("");
       setLoading(true);
-      if (!formData.email || !formData.password) {
-        setErrorMsg("Please fill in the fields");
-      }
-      const {
-        data: { user, session },
-        error,
-      } = await login(formData.email, formData.password);
-
-      if (error) setErrorMsg(error.message);
-      if (user && session) navigate("/");
-    } catch (error) {
-      setErrorMsg("Email or Password Incorrect");
+      const { data, error } = await passwordReset(formData.email);
+      console.log(error);
+      console.log(data);
+      setMessage("Password reset has been sent to your email");
+    } catch (e) {
+      console.log(e);
     }
     setLoading(false);
   };
@@ -61,12 +51,12 @@ const Login = () => {
           />
         </Link>
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Sign in to your account
+          Reset Password
         </h2>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <p>{errorMsg}</p>
+        <p>{message}</p>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
@@ -87,41 +77,23 @@ const Login = () => {
               />
             </div>
           </div>
-
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Password
-              </label>
-              <div className="text-sm">
-                <span className="font-semibold text-[#026B26] hover:text-[#1e4e2f]">
-                  Forgot password? <Link to={"/passwordreset"}>Click Here</Link>
-                </span>
-              </div>
-            </div>
-            <div className="mt-2">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                onChange={updateData}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#1e4e2f] sm:text-sm sm:leading-6 px-3"
-              />
-            </div>
-          </div>
           <div>
             <button
               type="submit"
               disabled={loading}
               className="flex w-full justify-center rounded-md bg-[#026B26] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#194829] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Sign in
+              Send Reset Link
             </button>
+          </div>
+          <div className="w-100 text-center mt-2">
+            Back to login?{" "}
+            <a
+              href="/login"
+              className=" font-semibold text-[#026B26] hover:text-[#1e4e2f]"
+            >
+              Login
+            </a>
           </div>
         </form>
       </div>
@@ -129,4 +101,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default PasswordReset;

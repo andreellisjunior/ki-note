@@ -1,7 +1,7 @@
 import Header from "./Header";
 import Loader from "./Loader";
 import SpeakerRequest from "./SpeakerRequest";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "./context/AuthProvider";
 import EventNotes from "./EventNotes";
 import { useEffect, useState } from "react";
@@ -17,16 +17,32 @@ type FormData = {
   requirements: string;
   status: string;
 };
+type Events = {
+  requirements: string;
+  id: string;
+  topic: string;
+  event_date: string;
+  event_time: string;
+  speaker: string;
+  email: string;
+  description: string;
+  notes: string;
+  rejection_notes: string;
+  status: string;
+}[];
 
 const Event = () => {
-  const { events, isLoading, user } = useAuth();
+  const { isLoading, user } = useAuth();
   const { eventID } = useParams();
+  const [events, setEvents] = useState<Events | null>([]);
 
   const event = events?.find((event) => {
     return event.id == eventID;
   });
 
   useEffect(() => {
+    getEvents();
+
     if (event) {
       setFormData({
         full_name: event?.speaker,
@@ -41,6 +57,11 @@ const Event = () => {
     }
   }, [event]);
 
+  const getEvents = async () => {
+    const { data } = await supabase.from("events").select().order("event_date");
+    setEvents(data);
+  };
+
   const [formData, setFormData] = useState<FormData>({
     full_name: "",
     email: "",
@@ -53,6 +74,7 @@ const Event = () => {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   let eventDate;
   let eventTime = formData.time;
@@ -135,12 +157,24 @@ const Event = () => {
     document.querySelector("textarea")?.removeAttribute("readonly");
   };
 
+  const deleteEvent = async () => {
+    if (confirm("Are you sure you'd like to delete the event?") == true) {
+      const { error } = await supabase
+        .from("events")
+        .delete()
+        .eq("id", eventID);
+      navigate("/");
+    } else {
+      return;
+    }
+  };
+
   return (
     <>
       <Header events={events} />
       <div className="grid grid-cols-6 items-stretch gap-12 container mx-auto">
         <div className="container mx-auto my-10 lg:col-span-4 col-span-6">
-          <div className="p-10 h-full bg-white w-full shadow-xl rounded-3xl">
+          <div className="p-10 h-full bg-white w-full shadow-xl rounded-3xl border-[1px] border-gray-300">
             {isLoading ? (
               <Loader />
             ) : event ? (
@@ -179,7 +213,7 @@ const Event = () => {
                     <div className="text-xl flex">
                       <span className="font-extrabold min-w-[25%]">DATE: </span>
                       <div>
-                        {user && (
+                        {user && isEditing && (
                           <div className="flex gap-4 mb-4">
                             <input
                               type="date"
@@ -270,17 +304,30 @@ const Event = () => {
                       >
                         Update
                       </button>
-                      {message && <span className="text-3xl">{message}</span>}
                     </div>
                   )}
                 </form>
                 {!isEditing && user && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={enableEditing}
+                      className="inline-flex items-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                      Edit
+                    </button>
+                    {message && (
+                      <span className="text-3xl absolute">{message}</span>
+                    )}
+                  </>
+                )}
+                {user && (
                   <button
                     type="button"
-                    onClick={enableEditing}
-                    className="inline-flex items-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    onClick={deleteEvent}
+                    className="sticky left-full bg-red-100 text-red-800 font-black mr-2 px-3 py-2 rounded-md"
                   >
-                    Edit
+                    Remove Event
                   </button>
                 )}
               </>
