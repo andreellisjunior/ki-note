@@ -168,7 +168,7 @@ const Event = () => {
                 <form onSubmit={handleSubmit} className="mb-8">
                   <div className="flex flex-col gap-10">
                     {user && (
-                      <div className="text-xl flex items-center">
+                      <div className="text-xl flex flex-col md:flex-row items-center">
                         <span className="font-extrabold min-w-[25%]">
                           TOPIC:{" "}
                         </span>
@@ -184,7 +184,7 @@ const Event = () => {
                       </div>
                     )}
                     {user && (
-                      <div className="text-xl flex items-center">
+                      <div className="text-xl flex flex-col md:flex-row items-center">
                         <span className="font-extrabold min-w-[25%]">
                           STATUS:{" "}
                         </span>
@@ -195,7 +195,7 @@ const Event = () => {
                         </span>
                       </div>
                     )}
-                    <div className="text-xl flex">
+                    <div className="text-xl flex flex-col md:flex-row">
                       <span className="font-extrabold min-w-[25%]">DATE: </span>
                       <div>
                         {user && isEditing && (
@@ -236,7 +236,7 @@ const Event = () => {
                         </span>
                       </div>
                     </div>
-                    <div className="text-xl flex">
+                    <div className="text-xl flex flex-col md:flex-row">
                       <span className="font-extrabold min-w-[25%]">
                         SPEAKER:{" "}
                       </span>
@@ -251,7 +251,7 @@ const Event = () => {
                         readOnly
                       />
                     </div>
-                    <div className="text-xl flex">
+                    <div className="text-xl flex flex-col md:flex-row">
                       <span className="font-extrabold min-w-[25%]">
                         EMAIL:{" "}
                       </span>
@@ -266,7 +266,7 @@ const Event = () => {
                         readOnly
                       />
                     </div>
-                    <div className="text-xl flex">
+                    <div className="text-xl flex flex-col md:flex-row">
                       <span className="font-extrabold min-w-[25%]">DESC: </span>
                       {/* <span className="" onChange={updateData}>
                         {formData.description}
