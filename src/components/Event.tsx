@@ -164,6 +164,7 @@ const Event = () => {
         .delete()
         .eq("id", eventID);
       navigate("/");
+      if (error) return error;
     } else {
       return;
     }
