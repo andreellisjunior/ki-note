@@ -35,7 +35,6 @@ const EventNotes = () => {
 
   const handleNotesSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("email section of the handlesubmit");
     try {
       const { error } = await supabase
         .from("events")
@@ -86,7 +85,6 @@ const EventNotes = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    console.log("email section of the handle rejection");
     try {
       const { error } = await supabase
         .from("events")

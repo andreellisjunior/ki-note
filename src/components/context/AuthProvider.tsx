@@ -3,14 +3,14 @@ import { User } from "@supabase/supabase-js";
 import { supabase } from "../../supabase/client";
 
 type AuthContext = {
-  login: Function;
+  login: (email: string, password: string) => void;
   user?: User | null;
-  signOut: Function;
+  signOut: () => void;
   auth: boolean;
   events: Events | null;
   isLoading: boolean;
-  passwordReset: Function;
-  updatePassword: Function;
+  passwordReset: (email: string) => void;
+  updatePassword: (updatedPassword: string) => void;
 };
 
 type Events = {
@@ -46,7 +46,7 @@ const passwordReset = (email: string) =>
 const updatePassword = (updatedPassword: string) =>
   supabase.auth.updateUser({ password: updatedPassword });
 
-const AuthProvider = ({ children }: { children: any }) => {
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>();
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
