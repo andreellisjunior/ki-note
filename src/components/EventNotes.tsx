@@ -106,21 +106,22 @@ const EventNotes = () => {
         reply_to: event?.email,
         message: `You're keynote has been rejected! Here are the reasons: (${event?.rejection_notes}). Please forward this email to keynote@precisionplanting.com with your corrections and someone will get ahold of you shortly. Event: https://kinote.netlify.app/events/${event?.id}.`,
       };
-
-      emailjs
-        .send(
-          "service_ck37ahe",
-          "template_4qn7aj9",
-          templateParams,
-          "4WRu2iRJgACLhXwZn"
-        )
-        .then(
-          (response) =>
-            console.log("Successful Email", response.status, response.text),
-          (err) => {
-            console.log("Failed, Email did not send", err);
-          }
-        );
+      if (event?.rejection_notes) {
+        emailjs
+          .send(
+            "service_ck37ahe",
+            "template_4qn7aj9",
+            templateParams,
+            "4WRu2iRJgACLhXwZn"
+          )
+          .then(
+            (response) =>
+              console.log("Successful Email", response.status, response.text),
+            (err) => {
+              console.log("Failed, Email did not send", err);
+            }
+          );
+      }
 
       if (error) {
         setError("Looks like something went wrong. Try again");
