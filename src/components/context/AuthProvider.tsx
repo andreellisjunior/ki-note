@@ -1,16 +1,18 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { User } from "@supabase/supabase-js";
+import { AuthError, User, UserResponse } from "@supabase/supabase-js";
 import { supabase } from "../../supabase/client";
 
 type AuthContext = {
-  login: (email: string, password: string) => void;
+  login: (email: string, password: string) => Promise<UserResponse>;
   user?: User | null;
-  signOut: () => void;
+  signOut: () => Promise<{ error: AuthError | null }>;
   auth: boolean;
   events: Events | null;
   isLoading: boolean;
-  passwordReset: (email: string) => void;
-  updatePassword: (updatedPassword: string) => void;
+  passwordReset: (
+    email: string
+  ) => Promise<{ data: {}; error: null } | { data: null; error: AuthError }>;
+  updatePassword: (updatedPassword: string) => Promise<UserResponse>;
 };
 
 type Events = {
