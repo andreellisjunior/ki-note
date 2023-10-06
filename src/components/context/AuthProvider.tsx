@@ -47,7 +47,7 @@ const signOut = () => supabase.auth.signOut();
 
 const passwordReset = (email: string) =>
   supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: "http://localhost:5177/update-password",
+    redirectTo: "http://kinote.netlify.app/update-password",
   });
 
 const updatePassword = (updatedPassword: string) =>
