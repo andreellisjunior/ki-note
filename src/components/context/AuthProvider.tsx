@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { User, createClient } from "@supabase/supabase-js";
+import { User } from "@supabase/supabase-js";
+import { supabase } from "../../supabase/client";
 
 type AuthContext = {
   login: Function;
@@ -30,11 +31,6 @@ type Events = {
 const AuthContext = createContext<AuthContext>();
 
 export const useAuth = () => useContext(AuthContext);
-
-const supabase = createClient(
-  `https://${import.meta.env.VITE_SUPABASE_PROJECT}.supabase.co`,
-  `${import.meta.env.VITE_SUPABASE_KEY}`
-);
 
 const login = (email: string, password: string) => {
   return supabase.auth.signInWithPassword({ email, password });
@@ -80,11 +76,14 @@ const AuthProvider = ({ children }: { children: any }) => {
       }
     });
 
+    const todaysDate = new Date(Date.now()).toLocaleDateString();
+
     const getEvents = async () => {
       const { data } = await supabase
         .from("events")
         .select()
-        .order("event_date");
+        .order("event_date")
+        .gte("event_date", todaysDate);
       setEvents(data);
       setIsLoading(false);
     };
