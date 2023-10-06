@@ -14,7 +14,7 @@ const UpcomingEvents = () => {
           ) : (
             <h2 className="text-3xl mb-4">Upcoming Events</h2>
           )}
-          <div className=" flex flex-col sm:grid sm:grid-rows-5 sm:grid-flow-col">
+          <div className=" flex flex-col sm:grid sm:grid-rows-5 sm:grid-cols-2">
             {isLoading ? (
               <Loader />
             ) : user ? (
