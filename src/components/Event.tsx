@@ -32,17 +32,15 @@ type Events = {
 }[];
 
 const Event = () => {
-  const { isLoading, user } = useAuth();
+  const { events, isLoading, user } = useAuth();
   const { eventID } = useParams();
-  const [events, setEvents] = useState<Events | null>([]);
+  // const [events, setEvents] = useState<Events | null>([]);
 
   const event = events?.find((event) => {
     return event.id == eventID;
   });
 
   useEffect(() => {
-    getEvents();
-
     if (event) {
       setFormData({
         full_name: event?.speaker,
@@ -57,11 +55,6 @@ const Event = () => {
     }
   }, [event]);
 
-  const getEvents = async () => {
-    const { data } = await supabase.from("events").select().order("event_date");
-    setEvents(data);
-  };
-
   const [formData, setFormData] = useState<FormData>({
     full_name: "",
     email: "",
@@ -75,6 +68,8 @@ const Event = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const inputFields = document.querySelectorAll("input");
+  const textArea = document.querySelector("textarea");
 
   let eventDate;
   let eventTime = formData.time;
@@ -110,7 +105,6 @@ const Event = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("email section of the handlesubmit");
     try {
       const { error } = await supabase
         .from("events")
@@ -129,6 +123,10 @@ const Event = () => {
         .select();
       setMessage("✅");
       setIsEditing(false);
+      inputFields.forEach((item) => {
+        item.setAttribute("readonly", "true");
+      });
+      textArea?.setAttribute("readonly", "true");
       if (error) {
         console.log(error);
       }
@@ -149,12 +147,11 @@ const Event = () => {
   };
 
   const enableEditing = () => {
-    const inputFields = document.querySelectorAll("input");
     setIsEditing(true);
     inputFields.forEach((item) => {
       item.removeAttribute("readonly");
     });
-    document.querySelector("textarea")?.removeAttribute("readonly");
+    textArea?.removeAttribute("readonly");
   };
 
   const deleteEvent = async () => {
