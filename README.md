@@ -1,27 +1,56 @@
-# React + TypeScript + Vite
+# Ki-Note | Midweek Keynote Scheduler and Viewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project was created to create insight on details our weekly midweek keynotes. All you have to do is visit [Ki-Note](https://kinote.netlify.app/) to view the upcoming keynotes and additional details. If you'd like to submit a keynote to do for yourself, feel free!
 
-## Expanding the ESLint configuration
+## Table of Contents
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Technology Used](#technology-used)
+- [Contributors](#contributors)
+- [Questions](#questions)
 
-- Configure the top-level `parserOptions` property like this:
+### Installation:
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+No installation required! Navigate to https://kinote.netlify.app/ to view and interact with the app.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Usage:
+
+To use this app, visit https://kinote.netlify.app/
+
+### License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+`This project is licensed under MIT`
+
+### Technology Used:
+
+- React
+- Typescript
+- TailwindCSS
+- PostgreSQL
+
+### Contribution:
+
+To contribute to this project, clone this repo locally and commit your code on a separate branch.
+
+#### Contributors:
+
+André Ellis Jr.
+
+### Questions:
+
+If you have any questions regarding this app, feel free to contact me:
+
+#### GitHub: https://github.com/andreellisjunior
+
+#### Email: andre.ellis@precisionplanting.com
+
+This project: https://github.com/andreellisjunior/ki-note
