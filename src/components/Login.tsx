@@ -98,7 +98,7 @@ const Login = () => {
               </label>
               <div className="text-sm">
                 <span className="font-semibold text-[#026B26] hover:text-[#1e4e2f]">
-                  Forgot password? <Link to={"/passwordreset"}>Click Here</Link>
+                  <Link to={"/passwordreset"}>Forgot password?</Link>
                 </span>
               </div>
             </div>

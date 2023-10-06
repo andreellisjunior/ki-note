@@ -17,19 +17,6 @@ type FormData = {
   requirements: string;
   status: string;
 };
-type Events = {
-  requirements: string;
-  id: string;
-  topic: string;
-  event_date: string;
-  event_time: string;
-  speaker: string;
-  email: string;
-  description: string;
-  notes: string;
-  rejection_notes: string;
-  status: string;
-}[];
 
 const Event = () => {
   const { events, isLoading, user } = useAuth();

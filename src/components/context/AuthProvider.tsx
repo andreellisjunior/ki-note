@@ -81,7 +81,6 @@ const AuthProvider = ({ children }: { children: any }) => {
     });
 
     const getEvents = async () => {
-      setIsLoading(true);
       const { data } = await supabase
         .from("events")
         .select()
@@ -89,6 +88,7 @@ const AuthProvider = ({ children }: { children: any }) => {
       setEvents(data);
       setIsLoading(false);
     };
+    setIsLoading(true);
     getEvents();
 
     return () => {
