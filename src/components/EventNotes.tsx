@@ -104,10 +104,10 @@ const EventNotes = () => {
         from_name: "Admin",
         to_name: event?.speaker,
         reply_to: event?.email,
-        message: `You're keynote has been rejected! Here are the reasons: (${event?.rejection_notes}). Please forward this email to keynote@precisionplanting.com with your corrections and someone will get ahold of you shortly. Event: https://kinote.netlify.app/events/${event?.id}.`,
+        message: `You're keynote has been rejected! Here are the reasons: (${formData.rejection_notes}). Please forward this email to keynote@precisionplanting.com with your corrections and someone will get ahold of you shortly. Event: https://kinote.netlify.app/events/${event?.id}.`,
       };
-      if (event?.rejection_notes) {
-        await emailjs
+      if (formData.rejection_notes) {
+        emailjs
           .send(
             "service_ck37ahe",
             "template_4qn7aj9",
