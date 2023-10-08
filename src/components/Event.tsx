@@ -205,7 +205,6 @@ const Event = () => {
                               name="day"
                               id="day"
                               onChange={updateData}
-                              readOnly
                               className="border border-gray-400 bg-[#FBFBFB] rounded-lg w-full"
                             />
                             <input
@@ -214,7 +213,6 @@ const Event = () => {
                               id="time"
                               pattern="[0-9]{2}:[0-9]{2}"
                               onChange={updateData}
-                              readOnly
                               className="border border-gray-400 bg-[#FBFBFB] rounded-lg w-full"
                             />
                           </div>
