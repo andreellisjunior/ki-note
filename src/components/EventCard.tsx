@@ -31,6 +31,8 @@ const EventCard = ({
     Number(timeConversion) > 12 ? "PM" : "AM"
   }`;
 
+  console.log(event.topic, eventDate.toLocaleDateString());
+
   let badgeColor;
   switch (event.status) {
     case "rejected":
@@ -61,6 +63,7 @@ const EventCard = ({
               year: "numeric",
               month: "long",
               day: "numeric",
+              timeZone: "UTC",
             })}
           </span>{" "}
           |{" "}
